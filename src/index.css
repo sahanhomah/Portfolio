@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root,
+  html[data-theme='neon'] {
+    --brand-50: 255 255 255;
+    --brand-100: 255 255 0;
+    --brand-200: 255 141 0;
+    --brand-300: 255 27 96;
+    --brand-400: 255 91 146;
+    --brand-500: 2 225 234;
+    --brand-600: 0 177 186;
+    --brand-700: 0 133 140;
+    --brand-800: 0 91 96;
+    --brand-900: 3 36 38;
+  }
+
+  html[data-theme='teal-orange'] {
+    --brand-50: 234 244 235;
+    --brand-100: 133 204 206;
+    --brand-200: 9 172 199;
+    --brand-300: 227 62 24;
+    --brand-400: 197 58 31;
+    --brand-500: 159 49 26;
+    --brand-600: 125 40 23;
+    --brand-700: 90 33 22;
+    --brand-800: 61 26 19;
+    --brand-900: 31 18 15;
+  }
+
+  html[data-theme='brown-rose'] {
+    --brand-50: 232 215 209;
+    --brand-100: 231 193 189;
+    --brand-200: 211 143 120;
+    --brand-300: 184 101 79;
+    --brand-400: 169 89 73;
+    --brand-500: 146 84 65;
+    --brand-600: 126 72 56;
+    --brand-700: 101 60 49;
+    --brand-800: 75 47 39;
+    --brand-900: 47 30 26;
+  }
+
+  html[data-theme='orange'] {
+    --brand-50: 253 227 205;
+    --brand-100: 250 200 156;
+    --brand-200: 248 172 106;
+    --brand-300: 245 145 57;
+    --brand-400: 244 127 31;
+    --brand-500: 243 117 7;
+    --brand-600: 216 101 5;
+    --brand-700: 169 79 4;
+    --brand-800: 110 51 4;
+    --brand-900: 45 23 7;
+  }
+
+  html[data-theme='pastel-pop'] {
+    --brand-50: 211 185 246;
+    --brand-100: 171 208 254;
+    --brand-200: 254 168 193;
+    --brand-300: 255 132 156;
+    --brand-400: 255 159 176;
+    --brand-500: 252 173 104;
+    --brand-600: 230 149 82;
+    --brand-700: 188 121 66;
+    --brand-800: 132 84 57;
+    --brand-900: 59 36 49;
+  }
+
+  html[data-theme='sunset'] {
+    --brand-50: 185 184 189;
+    --brand-100: 252 220 139;
+    --brand-200: 234 113 52;
+    --brand-300: 189 67 30;
+    --brand-400: 168 59 26;
+    --brand-500: 143 50 22;
+    --brand-600: 117 40 15;
+    --brand-700: 91 31 11;
+    --brand-800: 64 22 9;
+    --brand-900: 13 15 18;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    background-color: rgb(var(--brand-900));
+    color: rgb(var(--brand-50));
+  }
+
+  ::selection {
+    background: rgb(var(--brand-300));
+    color: rgb(var(--brand-50));
+  }
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
+}
