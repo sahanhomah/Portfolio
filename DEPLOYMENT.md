@@ -118,33 +118,16 @@ This creates an optimized `dist/` folder ready for deployment.
 
 **Steps:**
 
-1. **Update `vite.config.js`**
-   ```javascript
-   import { defineConfig } from 'vite'
-   import react from '@vitejs/plugin-react'
-   
-   export default defineConfig({
-     plugins: [react()],
-     base: '/portfolio-website/', // Replace with your repo name
-   })
-   ```
+1. **Keep the Vite base path set to your repo name**
+   - This project uses `base: '/Portfolio/'` in `vite.config.js`.
 
-2. **Build project**
-   ```bash
-   npm run build
-   ```
+2. **Use the GitHub Actions workflow**
+   - The workflow at `.github/workflows/deploy.yml` runs `npm run build` and publishes `dist/`.
 
-3. **Commit and push**
-   ```bash
-   git add dist/
-   git commit -m "Deploy to GitHub Pages"
-   git push origin main
-   ```
-
-4. **Enable Pages**
+3. **Enable Pages**
    - Go to Settings > Pages
-   - Source: Deploy from a branch
-   - Branch: `main`, Folder: `/(root)`
+   - Source: **GitHub Actions**
+   - Push to `main` or run the workflow manually from the Actions tab
 
 5. **Subdomain**
    - Add `CNAME` file to `public/`:

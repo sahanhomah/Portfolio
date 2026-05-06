@@ -225,26 +225,16 @@ animation: {
 
 ### Deploy to GitHub Pages
 
-1. **Update `vite.config.js`**
-   ```javascript
-   export default {
-     base: '/repository-name/',
-     // ... rest of config
-   }
-   ```
+1. **Keep the Vite base path set to your repo name**
+   - This project uses `base: '/Portfolio/'` in `vite.config.js`.
 
-2. **Build and deploy**
-   ```bash
-   npm run build
-   git add dist
-   git commit -m "Build for deployment"
-   git push origin main
-   ```
+2. **Push to `main`**
+   - The workflow in `.github/workflows/deploy.yml` builds the site and deploys it automatically.
 
 3. **Enable GitHub Pages**
    - Go to repository Settings > Pages
-   - Select "Deploy from a branch"
-   - Choose `main` branch and `/dist` folder
+   - Under Build and deployment, select **GitHub Actions**
+   - Push to `main` again, or run the workflow manually from the Actions tab
 
 ## Contact Form
 
