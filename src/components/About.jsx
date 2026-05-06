@@ -1,3 +1,5 @@
+import profileImage from '../assets/profile.jpg'
+
 export default function About() {
   return (
     <section id="about" className="min-h-screen bg-brand-800 text-brand-50 py-20">
@@ -11,7 +13,7 @@ export default function About() {
           <div className="flex justify-center animate-slide-up">
             <div className="w-64 h-64 bg-gradient-to-br from-brand-200 to-brand-600 rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition transform hover:scale-105">
               <img
-                src="src/assets/profile.jpg"
+                src={profileImage}
                 alt="xaina"
                 className="w-full h-full object-cover"
               />

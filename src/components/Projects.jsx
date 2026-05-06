@@ -1,5 +1,28 @@
 import { ExternalLink } from 'lucide-react';
 
+function createProjectImage(title) {
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-labelledby="title desc">
+      <title>${title}</title>
+      <desc>Project thumbnail for ${title}</desc>
+      <defs>
+        <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#02e1ea" />
+          <stop offset="55%" stop-color="#00858c" />
+          <stop offset="100%" stop-color="#032426" />
+        </linearGradient>
+      </defs>
+      <rect width="800" height="500" rx="32" fill="url(#bg)" />
+      <circle cx="660" cy="120" r="90" fill="rgba(255,255,255,0.12)" />
+      <circle cx="140" cy="390" r="120" fill="rgba(255,255,255,0.08)" />
+      <text x="64" y="280" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">${title}</text>
+      <text x="64" y="338" fill="#dbeff0" font-family="Arial, Helvetica, sans-serif" font-size="24">Portfolio showcase</text>
+    </svg>
+  `
+
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg.trim())}`
+}
+
 export default function Projects() {
   const projects = [
     {
@@ -9,7 +32,7 @@ export default function Projects() {
       tech: ["React", "Node.js", "MongoDB", "Stripe"],
       github: "https://github.com",
       live: "https://example.com",
-      image: "https://via.placeholder.com/400x250?text=E-Commerce"
+      image: createProjectImage('E-Commerce Platform')
     },
     {
       id: 2,
@@ -18,7 +41,7 @@ export default function Projects() {
       tech: ["React", "Firebase", "Tailwind CSS"],
       github: "https://github.com",
       live: "https://example.com",
-      image: "https://via.placeholder.com/400x250?text=Task+Manager"
+      image: createProjectImage('Task Management App')
     },
     {
       id: 3,
@@ -27,7 +50,7 @@ export default function Projects() {
       tech: ["React", "API Integration", "Charts.js"],
       github: "https://github.com",
       live: "https://example.com",
-      image: "https://via.placeholder.com/400x250?text=Weather"
+      image: createProjectImage('Weather Dashboard')
     },
     {
       id: 4,
@@ -36,7 +59,7 @@ export default function Projects() {
       tech: ["React", "Express", "PostgreSQL", "Socket.io"],
       github: "https://github.com",
       live: "https://example.com",
-      image: "https://via.placeholder.com/400x250?text=Social+Media"
+      image: createProjectImage('Social Media Clone')
     },
     {
       id: 5,
@@ -45,7 +68,7 @@ export default function Projects() {
       tech: ["React", "Vite", "Tailwind CSS"],
       github: "https://github.com",
       live: "https://example.com",
-      image: "https://via.placeholder.com/400x250?text=Portfolio"
+      image: createProjectImage('Portfolio Generator')
     },
     {
       id: 6,
@@ -54,7 +77,7 @@ export default function Projects() {
       tech: ["React", "Python", "Django", "PostgreSQL"],
       github: "https://github.com",
       live: "https://example.com",
-      image: "https://via.placeholder.com/400x250?text=Learning"
+      image: createProjectImage('Learning Platform')
     }
   ];
 
