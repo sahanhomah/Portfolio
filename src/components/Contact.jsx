@@ -110,28 +110,9 @@ export default function Contact() {
                   </a>
                 </div>
               </div>
-            </div>
+          
 
-            {/* Social Links */}
-            <div>
-              <p className="text-brand-200 mb-4">Follow Me</p>
-              <div className="flex gap-4">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`w-12 h-12 rounded-full bg-brand-800 border border-brand-700 flex items-center justify-center transition hover:border-brand-300 ${social.color}`}
-                      aria-label={social.label}
-                    >
-                      <Icon size={20} />
-                    </a>
-                  );
-                })}
-              </div>
+            
             </div>
           </div>
 
