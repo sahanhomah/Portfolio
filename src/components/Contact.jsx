@@ -3,7 +3,7 @@ import { Mail, Phone, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
+    name: ' ',
     email: '',
     subject: '',
     message: ''
@@ -19,7 +19,7 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validate form
@@ -28,29 +28,50 @@ export default function Contact() {
       return;
     }
 
-    // Show success message
-    setSubmitted(true);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
+    try {
+      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+      const response = await fetch(`${apiBaseUrl}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Hide message after 5 seconds
-    setTimeout(() => setSubmitted(false), 5000);
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || 'Failed to send email'}`);
+        return;
+      }
 
-    // In a real application, you would send this data to a backend
-    console.log('Form submitted:', formData);
+      const data = await response.json();
+      
+      // Show success message
+      setSubmitted(true);
+      
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+
+      // Hide message after 5 seconds
+      setTimeout(() => setSubmitted(false), 5000);
+
+      console.log('Form submitted successfully:', data);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('Error sending message. Please try again later.');
+    }
   };
 
   const socialLinks = [
-    { icon: ExternalLink, url: "https://github.com", label: "GitHub", color: "hover:text-brand-100" },
-    { icon: ExternalLink, url: "https://linkedin.com", label: "LinkedIn", color: "hover:text-brand-300" },
-    { icon: ExternalLink, url: "https://twitter.com", label: "Twitter", color: "hover:text-brand-200" },
-    { icon: Mail, url: "mailto:your.email@example.com", label: "Email", color: "hover:text-brand-300" }
+    { icon: ExternalLink, url: "https://github.com/sahanhomah", label: "GitHub", color: "hover:text-brand-100" },
+    { icon: ExternalLink, url: "https://www.linkedin.com/in/sahan-shrestha-09a919316/", label: "LinkedIn", color: "hover:text-brand-300" },
+  
+    { icon: Mail, url: "mailto:sahanshrestha2000@gmail.com", label: "Email", color: "hover:text-brand-300" }
   ];
 
   return (
@@ -76,8 +97,8 @@ export default function Contact() {
                 <Mail className="text-brand-300" size={24} />
                 <div>
                   <p className="text-brand-200 text-sm">Email</p>
-                  <a href="mailto:your.email@example.com" className="text-lg hover:text-brand-300 transition">
-                    your.email@example.com
+                  <a href="mailto:sahanshrestha2000@gmail.com" className="text-lg hover:text-brand-300 transition">
+                    sahanshrestha2000@gmail.com
                   </a>
                 </div>
               </div>
