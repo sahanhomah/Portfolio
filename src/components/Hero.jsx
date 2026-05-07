@@ -2,7 +2,7 @@ import { ChevronDown } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen bg-gradient-to-br from-brand-900 via-[#231309] to-brand-800 text-brand-50 flex items-center justify-center pt-16">
+    <section id="home" className="min-h-screen bg-gradient-to-br from-brand-900 to-brand-800 text-brand-50 flex items-center justify-center pt-16">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center animate-fade-in">
         <div className="mb-8">
           <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">

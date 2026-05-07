@@ -2,6 +2,22 @@ export const THEME_STORAGE_KEY = 'portfolio-theme'
 
 export const THEMES = [
   {
+    id: 'default-light',
+    label: 'Default Light',
+    colors: {
+      50: '#2a2a4a',
+      100: '#3a3a5a',
+      200: '#4a4a7a',
+      300: '#5a5a9a',
+      400: '#7b7baf',
+      500: '#9d9dc7',
+      600: '#d4cfe8',
+      700: '#e8e5f5',
+      800: '#f8f7fc',
+      900: '#ffffff',
+    },
+  },
+  {
     id: 'neon',
     label: 'Neon',
     colors: {
@@ -99,7 +115,7 @@ export const THEMES = [
   },
 ]
 
-export const DEFAULT_THEME_ID = 'neon'
+export const DEFAULT_THEME_ID = 'default-light'
 
 export function hexToRgbTriplet(hex) {
   const normalizedHex = hex.replace('#', '')

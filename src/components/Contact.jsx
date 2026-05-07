@@ -70,7 +70,6 @@ export default function Contact() {
   const socialLinks = [
     { icon: ExternalLink, url: "https://github.com/sahanhomah", label: "GitHub", color: "hover:text-brand-100" },
     { icon: ExternalLink, url: "https://www.linkedin.com/in/sahan-shrestha-09a919316/", label: "LinkedIn", color: "hover:text-brand-300" },
-  
     { icon: Mail, url: "mailto:sahanshrestha2000@gmail.com", label: "Email", color: "hover:text-brand-300" }
   ];
 
@@ -107,7 +106,7 @@ export default function Contact() {
                 <div>
                   <p className="text-brand-200 text-sm">Phone</p>
                   <a href="tel:+1234567890" className="text-lg hover:text-brand-300 transition">
-                    +1 (234) 567-8900
+                    +977 9813068936
                   </a>
                 </div>
               </div>
