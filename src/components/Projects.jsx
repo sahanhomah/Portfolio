@@ -1,4 +1,7 @@
 import { ExternalLink } from 'lucide-react';
+import meropasal from '../assets/meropasal.png';
+import raktasathi from '../assets/raktasathi.png';
+import portfolio from '../assets/image.png';
 
 function createProjectImage(title) {
   const svg = `
@@ -27,58 +30,30 @@ export default function Projects() {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-featured e-commerce website with product catalog, shopping cart, and payment integration.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
-      github: "https://github.com",
-      live: "https://example.com",
-      image: createProjectImage('E-Commerce Platform')
+      title: "MeroPasal An E-Commerce Platform",
+      description: "A full-featured e-commerce website with tech product catalog, shopping cart, and payment integration.",
+      tech: ["HTML", "JavaScript", "MySQL", "PHP"],
+      github: "https://github.com/sahanhomah/meropasal.git",
+      image: meropasal
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "Collaborative task management application with real-time updates and user authentication.",
-      tech: ["React", "Firebase", "Tailwind CSS"],
-      github: "https://github.com",
-      live: "https://example.com",
-      image: createProjectImage('Task Management App')
+      title: "RaktaSathi",
+      description: "RaktaSathi is an online platform that helps people find and donate blood easily. It connects donors, people in need of blood.",
+      tech: ["Django", "PostgreSQL", "Tailwind CSS"],
+      github: "https://github.com/sahanhomah/RaktaSathi.git",
+      image: raktasathi
     },
     {
       id: 3,
-      title: "Weather Dashboard",
-      description: "Real-time weather dashboard with location search, forecasts, and weather alerts.",
-      tech: ["React", "API Integration", "Charts.js"],
-      github: "https://github.com",
-      live: "https://example.com",
-      image: createProjectImage('Weather Dashboard')
-    },
-    {
-      id: 4,
-      title: "Social Media Clone",
-      description: "Social networking platform with user profiles, posts, comments, and real-time notifications.",
-      tech: ["React", "Express", "PostgreSQL", "Socket.io"],
-      github: "https://github.com",
-      live: "https://example.com",
-      image: createProjectImage('Social Media Clone')
-    },
-    {
-      id: 5,
-      title: "Portfolio Generator",
-      description: "Dynamic portfolio generator that creates personalized portfolios from user templates.",
-      tech: ["React", "Vite", "Tailwind CSS"],
-      github: "https://github.com",
-      live: "https://example.com",
-      image: createProjectImage('Portfolio Generator')
-    },
-    {
-      id: 6,
-      title: "Learning Platform",
-      description: "Online learning platform with video courses, progress tracking, and certification.",
-      tech: ["React", "Python", "Django", "PostgreSQL"],
-      github: "https://github.com",
-      live: "https://example.com",
-      image: createProjectImage('Learning Platform')
+      title: "Portfolio Website",
+      description: "Personal portfolio website to showcase projects and skills.",
+      tech: ["React", "Tailwind CSS"],
+      github: "https://github.com/sahanhomah/Portfolio.git",
+      image: portfolio
     }
+
+   
   ];
 
   return (
@@ -134,16 +109,7 @@ export default function Projects() {
                     <ExternalLink size={18} />
                     <span className="text-sm">Code</span>
                   </a>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 px-4 py-2 rounded text-brand-50 font-semibold transition"
-                    aria-label="View live project"
-                  >
-                    <ExternalLink size={18} />
-                    <span className="text-sm">Live</span>
-                  </a>
+                 
                 </div>
               </div>
             </div>
