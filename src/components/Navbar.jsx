@@ -31,7 +31,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="#home" className="text-2xl font-bold bg-gradient-to-r from-brand-100 via-brand-200 to-brand-300 bg-clip-text text-transparent">
-              Portfolio
+              "Sahan Shrestha"
             </a>
           </div>
 
