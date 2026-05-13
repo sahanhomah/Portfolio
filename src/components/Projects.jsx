@@ -40,7 +40,7 @@ export default function Projects() {
       id: 2,
       title: "RaktaSathi",
       description: "RaktaSathi is an online platform that helps people find and donate blood easily. It connects donors, people in need of blood.",
-      tech: ["Django", "PostgreSQL", "Tailwind CSS"],
+      tech: ["Django",  "Javascript","Bootstrap CSS","SQLite",],
       github: "https://github.com/sahanhomah/RaktaSathi.git",
       image: raktasathi
     },
@@ -48,7 +48,7 @@ export default function Projects() {
       id: 3,
       title: "Portfolio Website",
       description: "Personal portfolio website to showcase projects and skills.",
-      tech: ["React", "Tailwind CSS"],
+      tech: ["React", "Node.js", "Express", "Tailwind CSS"],
       github: "https://github.com/sahanhomah/Portfolio.git",
       image: portfolio
     }
