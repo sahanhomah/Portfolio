@@ -1,14 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { applyTheme, getStoredTheme, THEMES } from '../theme';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [theme, setTheme] = useState(getStoredTheme());
+  const [showNav, setShowNav] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     applyTheme(theme);
   }, [theme]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      if (currentY > lastScrollY.current && currentY > 50) {
+        setShowNav(false);
+      } else {
+        setShowNav(true);
+      }
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) setShowNav(true);
+  }, [isOpen]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -25,7 +46,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed w-full bg-brand-900/95 text-brand-50 shadow-lg z-50 backdrop-blur-sm border-b border-brand-700/40">
+    <nav className={`fixed top-0 left-0 w-full bg-brand-900/95 text-brand-50 shadow-md z-50 backdrop-blur-sm border-b border-brand-700/40 transform transition-transform duration-300 ${showNav ? 'translate-y-0' : '-translate-y-full'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-16 gap-4">
           {/* Logo */}

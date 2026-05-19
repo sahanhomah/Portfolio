@@ -1,15 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Phone, ExternalLink } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: ' ',
+    name: '',
     email: '',
     subject: '',
     message: ''
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY');
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,42 +35,43 @@ export default function Contact() {
       return;
     }
 
+    setLoading(true);
+
     try {
-      const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
-      const response = await fetch(`${apiBaseUrl}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID',
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID',
+        {
+          to_email: import.meta.env.VITE_EMAILJS_RECIPIENT || 'sahanshrestha2000@gmail.com',
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      );
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        alert(`Error: ${errorData.error || 'Failed to send email'}`);
-        return;
+      if (response.status === 200) {
+        // Show success message
+        setSubmitted(true);
+
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+
+        // Hide message after 5 seconds
+        setTimeout(() => setSubmitted(false), 5000);
+
+        console.log('Email sent successfully!');
       }
-
-      const data = await response.json();
-      
-      // Show success message
-      setSubmitted(true);
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
-
-      // Hide message after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000);
-
-      console.log('Form submitted successfully:', data);
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('Error sending email:', error);
       alert('Error sending message. Please try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -191,9 +199,10 @@ export default function Contact() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-brand-50 py-3 rounded-lg font-semibold transition transform hover:scale-105 active:scale-95"
+                disabled={loading}
+                className="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-brand-50 py-3 rounded-lg font-semibold transition transform hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
               >
-                Send Message
+                {loading ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           </div>

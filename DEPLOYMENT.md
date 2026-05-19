@@ -258,6 +258,19 @@ All platforms provide free SSL:
 - **Vercel**: Automatic
 - **Netlify**: Automatic
 - **GitHub Pages**: Automatic
+
+### GitHub Pages + EmailJS
+
+If you deploy with GitHub Pages, add these repository secrets so the workflow can build the contact form correctly:
+
+```text
+VITE_EMAILJS_PUBLIC_KEY
+VITE_EMAILJS_SERVICE_ID
+VITE_EMAILJS_TEMPLATE_ID
+VITE_EMAILJS_RECIPIENT
+```
+
+The workflow injects them during `npm run build`, and Vite bakes them into the static bundle.
 - **AWS**: Use ACM (free)
 
 ---
