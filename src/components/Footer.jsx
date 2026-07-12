@@ -43,7 +43,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="text-center text-sm">
             <p className="flex items-center justify-center gap-2 mb-2">
-              Made with Copilot by Sahan Shrestha
+           
             </p>
             <p>&copy; {currentYear} Your Portfolio. All rights reserved.</p>
           </div>
