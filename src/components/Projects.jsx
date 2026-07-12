@@ -2,6 +2,8 @@ import { ExternalLink } from 'lucide-react';
 import meropasal from '../assets/meropasal.png';
 import raktasathi from '../assets/raktasathi.png';
 import portfolio from '../assets/image.png';
+import exercisetracker from '../assets/exercisetracker.png';
+import quizweb from '../assets/quizweb.png';
 
 function createProjectImage(title) {
   const svg = `
@@ -51,6 +53,22 @@ export default function Projects() {
       tech: ["React", "Node.js", "Express", "Tailwind CSS"],
       github: "https://github.com/sahanhomah/Portfolio.git",
       image: portfolio
+    },
+    {
+      id: 4,
+      title: "Exercise Tracker",
+      description: "A simple exercise tracking application to monitor workouts and progress.",
+      tech: ["Python", "tkinter"],
+      github: "https://github.com/sahanhomah/ExerciseTracking.git",
+      image: exercisetracker
+    },
+    {
+      id: 5,
+      title: "Quiz Web Application", 
+      description: "A web application made to improve my own general knowledge and to help others improve their general knowledge.",
+      tech: ["Python", "Django", "SQLite", "Tailwind CSS"],
+      github: "https://github.com/sahanhomah/QuizApp.git",
+      image: quizweb
     }
 
    
