@@ -3,7 +3,48 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Fallback palettes. `applyTheme()` overwrites these as inline styles on
+   * <html> once React mounts, but these keep the page correct during the very
+   * first paint (index.html sets data-theme before any JS module runs).
+   */
   :root,
+  html[data-theme='folio'] {
+    --brand-50: 14 18 49;
+    --brand-100: 58 63 92;
+    --brand-200: 110 115 145;
+    --brand-300: 75 50 224;
+    --brand-400: 108 85 232;
+    --brand-500: 139 120 239;
+    --brand-600: 180 168 246;
+    --brand-700: 226 221 251;
+    --brand-800: 244 242 254;
+    --brand-900: 255 255 255;
+    --accent-page: 251 227 214;
+    --accent-yellow: 255 213 0;
+    --accent-orange: 255 122 0;
+    --accent-pink: 245 184 203;
+    --accent-lavender: 201 194 247;
+  }
+
+  html[data-theme='default-light'] {
+    --brand-50: 42 42 74;
+    --brand-100: 58 58 90;
+    --brand-200: 74 74 122;
+    --brand-300: 90 90 154;
+    --brand-400: 123 123 175;
+    --brand-500: 157 157 199;
+    --brand-600: 212 207 232;
+    --brand-700: 232 229 245;
+    --brand-800: 248 247 252;
+    --brand-900: 255 255 255;
+    --accent-page: 232 230 242;
+    --accent-yellow: 240 198 116;
+    --accent-orange: 224 138 90;
+    --accent-pink: 229 179 198;
+    --accent-lavender: 195 189 224;
+  }
+
   html[data-theme='neon'] {
     --brand-50: 255 255 255;
     --brand-100: 255 255 0;
@@ -15,6 +56,11 @@
     --brand-700: 0 133 140;
     --brand-800: 0 91 96;
     --brand-900: 3 36 38;
+    --accent-page: 2 21 23;
+    --accent-yellow: 255 255 0;
+    --accent-orange: 255 141 0;
+    --accent-pink: 255 91 146;
+    --accent-lavender: 2 225 234;
   }
 
   html[data-theme='teal-orange'] {
@@ -28,6 +74,11 @@
     --brand-700: 90 33 22;
     --brand-800: 61 26 19;
     --brand-900: 31 18 15;
+    --accent-page: 21 12 10;
+    --accent-yellow: 133 204 206;
+    --accent-orange: 227 62 24;
+    --accent-pink: 197 58 31;
+    --accent-lavender: 9 172 199;
   }
 
   html[data-theme='brown-rose'] {
@@ -41,6 +92,11 @@
     --brand-700: 101 60 49;
     --brand-800: 75 47 39;
     --brand-900: 47 30 26;
+    --accent-page: 36 23 19;
+    --accent-yellow: 231 193 189;
+    --accent-orange: 211 143 120;
+    --accent-pink: 232 215 209;
+    --accent-lavender: 184 101 79;
   }
 
   html[data-theme='orange'] {
@@ -54,6 +110,11 @@
     --brand-700: 169 79 4;
     --brand-800: 110 51 4;
     --brand-900: 45 23 7;
+    --accent-page: 30 15 4;
+    --accent-yellow: 250 200 156;
+    --accent-orange: 243 117 7;
+    --accent-pink: 253 227 205;
+    --accent-lavender: 248 172 106;
   }
 
   html[data-theme='pastel-pop'] {
@@ -67,6 +128,11 @@
     --brand-700: 188 121 66;
     --brand-800: 132 84 57;
     --brand-900: 59 36 49;
+    --accent-page: 43 26 36;
+    --accent-yellow: 252 173 104;
+    --accent-orange: 255 132 156;
+    --accent-pink: 254 168 193;
+    --accent-lavender: 211 185 246;
   }
 
   html[data-theme='sunset'] {
@@ -80,6 +146,11 @@
     --brand-700: 91 31 11;
     --brand-800: 64 22 9;
     --brand-900: 13 15 18;
+    --accent-page: 8 9 11;
+    --accent-yellow: 252 220 139;
+    --accent-orange: 234 113 52;
+    --accent-pink: 189 67 30;
+    --accent-lavender: 185 184 189;
   }
 
   html,
@@ -89,20 +160,229 @@
   }
 
   body {
-    background-color: rgb(var(--brand-900));
+    background-color: rgb(var(--accent-page));
     color: rgb(var(--brand-50));
+    font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.03em;
   }
 
   ::selection {
     background: rgb(var(--brand-300));
-    color: rgb(var(--brand-50));
+    color: rgb(var(--brand-900));
   }
 }
 
-* {
-  scroll-behavior: smooth;
+@layer components {
+  /* The dashed eyebrow label used above every section heading. */
+  .eyebrow {
+    @apply inline-flex items-center gap-4 text-sm font-semibold tracking-wide;
+  }
+
+  .eyebrow::before {
+    content: '';
+    @apply block h-px w-10 bg-current opacity-70;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-3 rounded-xl bg-brand-300 px-8 py-4 text-sm font-semibold
+           text-brand-900 shadow-pill transition duration-300
+           hover:-translate-y-0.5 hover:brightness-110 active:translate-y-0;
+  }
+
+  .btn-ink {
+    @apply inline-flex items-center justify-center gap-3 rounded-xl bg-brand-50 px-8 py-4
+           text-sm font-semibold text-brand-900 transition duration-300
+           hover:-translate-y-0.5 hover:opacity-90 active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-3 rounded-xl border-2 border-brand-50/25 px-8 py-4
+           text-sm font-semibold text-brand-50 transition duration-300
+           hover:border-brand-300 hover:text-brand-300;
+  }
+
+  .field {
+    @apply w-full rounded-xl border-2 border-brand-700 bg-brand-800 px-5 py-4 text-brand-50
+           placeholder:text-brand-200 transition
+           focus:border-brand-300 focus:outline-none focus:ring-4 focus:ring-brand-300/20;
+  }
+
+  /*
+   * Service card raise.
+   *
+   * Driven by the data-active attribute rather than a conditional class so the
+   * card's className stays constant across re-renders (see useReveal).
+   *
+   * Uses `transform`, while .reveal uses `translate` — separate properties, so
+   * the hover lift and the scroll reveal compose instead of overwriting each
+   * other. Only applied from md up, where the cards sit side by side.
+   */
+  @media (min-width: 768px) {
+    .service-card[data-active='true'] {
+      transform: translateY(-2rem);
+    }
+  }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer utilities {
+  /*
+   * Scroll reveal.
+   *
+   * Uses the standalone `translate` property rather than `transform` on
+   * purpose: Tailwind's translate/scale utilities compile to `transform`, and
+   * `translate` is a separate property that composes with it. That keeps a
+   * revealed element free to also use `md:-translate-y-8` without the two
+   * fighting over one property.
+   *
+   * useReveal() applies the visible state as INLINE styles, not just a class,
+   * because React rewrites `className` whenever a component re-renders with
+   * different classes and would otherwise wipe an imperatively-added class.
+   */
+  .reveal {
+    opacity: 0;
+    translate: 0 32px;
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, translate;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    translate: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/*
+ * Lenis. Native smooth scrolling must stay off or the two fight each other,
+ * which produces a stuttering scroll.
+ */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/*
+ * Custom cursor: only on devices that actually have a precise pointer.
+ *
+ * `cursor` is an inherited property, so setting it on <html> covers most of the
+ * page. Only elements whose UA stylesheet sets their own cursor need listing.
+ * The previous `html.has-custom-cursor *` matched every element in the
+ * document, which made the browser re-evaluate the rule against the whole tree
+ * on each style recalculation.
+ */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor a,
+  html.has-custom-cursor button,
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor select,
+  html.has-custom-cursor label,
+  html.has-custom-cursor summary,
+  html.has-custom-cursor [role='button'] {
+    cursor: none !important;
+  }
+}
+
+/*
+ * Split into two elements on purpose:
+ *
+ *   .cursor-root — position only. JS writes `transform: translate3d()` here
+ *                  every frame. Compositor-only, no layout or paint.
+ *   .cursor-ring — appearance only. Size and colour change via class toggles,
+ *                  so these transitions run on hover/press rather than per
+ *                  frame, and never contend with the transform above.
+ */
+.cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.cursor-root.is-visible {
+  opacity: 1;
+}
+
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 46px;
+  border: 2px solid rgb(var(--brand-300));
+  border-radius: 999px;
+  background-color: transparent;
+  /* Constant CSS transform, so it never fights the JS-driven one on the root. */
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.18s ease-out;
+}
+
+.cursor-root.is-hover .cursor-ring {
+  width: 58px;
+  height: 58px;
+  background-color: rgb(var(--brand-300) / 0.12);
+}
+
+.cursor-root.is-press .cursor-ring {
+  transform: translate(-50%, -50%) scale(0.82);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+
+  .cursor-root {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,6 +1,40 @@
 export const THEME_STORAGE_KEY = 'portfolio-theme'
 
+/**
+ * Each theme exposes two token groups:
+ *
+ * `colors` -> the 50..900 "brand" ramp. It is intentionally INVERTED compared to
+ *   a normal Tailwind scale: 50 is the primary text colour and 900 is the page
+ *   surface. Components therefore read `bg-brand-900 text-brand-50`.
+ *   Step 300 is always the interactive/accent colour (links, buttons, focus).
+ *
+ * `accents` -> the decorative tokens used by the Folio layout: the page backdrop
+ *   the floating card sits on, plus the four illustration colours.
+ */
 export const THEMES = [
+  {
+    id: 'folio',
+    label: 'Folio',
+    colors: {
+      50: '#0e1231',
+      100: '#3a3f5c',
+      200: '#6e7391',
+      300: '#4b32e0',
+      400: '#6c55e8',
+      500: '#8b78ef',
+      600: '#b4a8f6',
+      700: '#e2ddfb',
+      800: '#f4f2fe',
+      900: '#ffffff',
+    },
+    accents: {
+      page: '#fbe3d6',
+      yellow: '#ffd500',
+      orange: '#ff7a00',
+      pink: '#f5b8cb',
+      lavender: '#c9c2f7',
+    },
+  },
   {
     id: 'default-light',
     label: 'Default Light',
@@ -15,6 +49,13 @@ export const THEMES = [
       700: '#e8e5f5',
       800: '#f8f7fc',
       900: '#ffffff',
+    },
+    accents: {
+      page: '#e8e6f2',
+      yellow: '#f0c674',
+      orange: '#e08a5a',
+      pink: '#e5b3c6',
+      lavender: '#c3bde0',
     },
   },
   {
@@ -32,6 +73,13 @@ export const THEMES = [
       800: '#005b60',
       900: '#032426',
     },
+    accents: {
+      page: '#021517',
+      yellow: '#ffff00',
+      orange: '#ff8d00',
+      pink: '#ff5b92',
+      lavender: '#02e1ea',
+    },
   },
   {
     id: 'teal-orange',
@@ -47,6 +95,13 @@ export const THEMES = [
       700: '#5a2116',
       800: '#3d1a13',
       900: '#1f120f',
+    },
+    accents: {
+      page: '#150c0a',
+      yellow: '#85ccce',
+      orange: '#e33e18',
+      pink: '#c53a1f',
+      lavender: '#09acc7',
     },
   },
   {
@@ -64,6 +119,13 @@ export const THEMES = [
       800: '#4b2f27',
       900: '#2f1e1a',
     },
+    accents: {
+      page: '#241713',
+      yellow: '#e7c1bd',
+      orange: '#d38f78',
+      pink: '#e8d7d1',
+      lavender: '#b8654f',
+    },
   },
   {
     id: 'orange',
@@ -79,6 +141,13 @@ export const THEMES = [
       700: '#a94f04',
       800: '#6e3304',
       900: '#2d1707',
+    },
+    accents: {
+      page: '#1e0f04',
+      yellow: '#fac89c',
+      orange: '#f37507',
+      pink: '#fde3cd',
+      lavender: '#f8ac6a',
     },
   },
   {
@@ -96,6 +165,13 @@ export const THEMES = [
       800: '#845439',
       900: '#3b2431',
     },
+    accents: {
+      page: '#2b1a24',
+      yellow: '#fcad68',
+      orange: '#ff849c',
+      pink: '#fea8c1',
+      lavender: '#d3b9f6',
+    },
   },
   {
     id: 'sunset',
@@ -112,10 +188,17 @@ export const THEMES = [
       800: '#401609',
       900: '#0d0f12',
     },
+    accents: {
+      page: '#08090b',
+      yellow: '#fcdc8b',
+      orange: '#ea7134',
+      pink: '#bd431e',
+      lavender: '#b9b8bd',
+    },
   },
 ]
 
-export const DEFAULT_THEME_ID = 'default-light'
+export const DEFAULT_THEME_ID = 'folio'
 
 export function hexToRgbTriplet(hex) {
   const normalizedHex = hex.replace('#', '')
@@ -135,7 +218,10 @@ export function getStoredTheme() {
     return DEFAULT_THEME_ID
   }
 
-  return window.localStorage.getItem(THEME_STORAGE_KEY) ?? DEFAULT_THEME_ID
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
+
+  // Guard against a stale id from a previous build that no longer exists.
+  return THEMES.some((theme) => theme.id === stored) ? stored : DEFAULT_THEME_ID
 }
 
 export function applyTheme(themeId) {
@@ -148,6 +234,10 @@ export function applyTheme(themeId) {
 
   Object.entries(theme.colors).forEach(([step, hex]) => {
     root.style.setProperty(`--brand-${step}`, hexToRgbTriplet(hex))
+  })
+
+  Object.entries(theme.accents).forEach(([name, hex]) => {
+    root.style.setProperty(`--accent-${name}`, hexToRgbTriplet(hex))
   })
 
   root.dataset.theme = theme.id

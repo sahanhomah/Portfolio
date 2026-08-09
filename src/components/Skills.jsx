@@ -1,62 +1,153 @@
+import { useState } from 'react'
+import { ArrowLeft, ArrowRight, Database, LayoutGrid, Server } from 'lucide-react'
+import { services } from '../data/site'
+
+const ICONS = {
+  layout: LayoutGrid,
+  server: Server,
+  database: Database,
+}
+
+const ACCENT_BG = {
+  yellow: 'bg-accent-yellow',
+  indigo: 'bg-brand-300',
+  pink: 'bg-accent-pink',
+  orange: 'bg-accent-orange',
+  lavender: 'bg-accent-lavender',
+}
+
+const ACCENT_FG = {
+  yellow: 'text-brand-50',
+  indigo: 'text-brand-900',
+  pink: 'text-brand-50',
+  orange: 'text-brand-900',
+  lavender: 'text-brand-50',
+}
+
 export default function Skills() {
-  const skillCategories = [
-    {
-      category: "Frontend",
-      skills: [ "JavaScript", "Tailwind CSS", "HTML/CSS", "Responsive Design"]
-    },
-    {
-      category: "Backend",
-      skills: ["Python", "Django", "REST APIs", "Authentication"]
-    },
-    {
-      category: "Databases",
-      skills: ["PostgreSQL",  "MySQL", ]
-    },
-    {
-      category: "Tools & Platforms",
-      skills: ["Git/GitHub"]
-    }
-  ];
+  const items = services.items
+  const [active, setActive] = useState(items.findIndex((item) => item.featured))
+
+  const go = (direction) => {
+    setActive((current) => (current + direction + items.length) % items.length)
+  }
 
   return (
-    <section id="skills" className="min-h-screen bg-brand-800 text-brand-50 py-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">
-          My <span className="bg-gradient-to-r from-brand-100 via-brand-200 to-brand-300 bg-clip-text text-transparent">Skills</span>
-        </h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skillCategories.map((category, index) => (
-            <div
-              key={index}
-              className="bg-brand-900 rounded-lg p-8 hover:shadow-xl transition transform hover:scale-105 animate-slide-up border border-brand-700 hover:border-brand-300"
-            >
-              <h3 className="text-2xl font-bold mb-6 text-brand-300">{category.category}</h3>
-              <ul className="space-y-3">
-                {category.skills.map((skill, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center text-brand-100 hover:text-brand-300 transition"
-                  >
-                    <span className="w-2 h-2 bg-brand-300 rounded-full mr-3"></span>
-                    {skill}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <section id="skills" className="relative overflow-hidden bg-brand-900 py-24 lg:py-36">
+      <div className="relative mx-auto max-w-[1500px] px-6 sm:px-10 lg:px-16">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <p className="eyebrow reveal text-brand-300">{services.eyebrow}</p>
+            <h2 className="reveal mt-6 text-4xl font-extrabold tracking-tightest text-brand-50 sm:text-5xl">
+              {services.title}
+            </h2>
+          </div>
         </div>
 
-        {/* Additional Info */}
-        <div className="mt-16 bg-gradient-to-r from-brand-700 to-brand-600 rounded-lg p-8 text-center">
-          <p className="text-lg mb-4">
-            I'm constantly learning and staying updated with the latest technologies and best practices in web development.
+        <div className="mt-16 grid gap-8 md:grid-cols-3 lg:gap-10">
+          {items.map((item, index) => {
+            const Icon = ICONS[item.icon] ?? LayoutGrid
+            const isActive = index === active
+
+            return (
+              <article
+                key={item.title}
+                onMouseEnter={() => setActive(index)}
+                onFocus={() => setActive(index)}
+                data-active={isActive ? 'true' : 'false'}
+                /*
+                 * className is deliberately CONSTANT. The active/inactive
+                 * difference is expressed through the data-active attribute
+                 * and inline style below instead, so React never rewrites this
+                 * attribute on hover. Rewriting it would wipe the `is-visible`
+                 * class that useReveal adds imperatively and the card would
+                 * fade out permanently.
+                 */
+                className="service-card reveal group relative flex flex-col rounded-card-lg bg-brand-900 p-9 transition-[box-shadow,transform] duration-500 lg:p-10"
+                style={{
+                  '--reveal-delay': `${index * 120}ms`,
+                  boxShadow: isActive
+                    ? '0 30px 80px -20px rgb(var(--brand-50) / 0.25)'
+                    : '0 24px 60px -18px rgb(var(--brand-50) / 0.12)',
+                }}
+              >
+                <span
+                  className={`flex h-24 w-24 items-center justify-center rounded-full ${ACCENT_BG[item.accent]} ${ACCENT_FG[item.accent]} transition duration-500 group-hover:scale-105`}
+                >
+                  <Icon size={38} strokeWidth={1.6} />
+                </span>
+
+                <h3 className="mt-9 text-2xl font-bold text-brand-50">{item.title}</h3>
+
+                <p className="mt-4 leading-relaxed text-brand-200">{item.description}</p>
+
+                <ul className="mt-7 flex flex-wrap gap-2">
+                  {item.skills.map((skill) => (
+                    <li
+                      key={skill}
+                      className="rounded-full bg-brand-800 px-4 py-2 text-xs font-semibold text-brand-100"
+                    >
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+
+                {/*
+                  Every card keeps its CTA. `mt-auto` pins it to the bottom so
+                  the buttons align even when descriptions differ in length.
+                */}
+                <div className="mt-auto pt-8">
+                  <a
+                    href="#projects"
+                    className={`w-full justify-center ${isActive ? 'btn-ink' : 'btn-ghost'}`}
+                    data-cursor="hover"
+                  >
+                    See it in action
+                    <ArrowRight size={16} />
+                  </a>
+                </div>
+              </article>
+            )
+          })}
+        </div>
+
+        {/* Pagination row from the reference footer bar */}
+        <div className="mt-16 flex items-center justify-between gap-6">
+          <p className="text-sm font-semibold tracking-[0.35em] text-brand-200">
+            <span className="text-brand-50">
+              {String(active + 1).padStart(2, '0')}
+            </span>
+            {'  .  '}
+            {String(items.length).padStart(2, '0')}
           </p>
-          <p className="text-brand-100">
-            Check out my projects to see these skills in action!
-          </p>
+
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous service"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-brand-200 transition hover:text-brand-50"
+            >
+              <ArrowLeft size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next service"
+              className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-brand-50 text-brand-50 transition hover:bg-brand-300 hover:border-brand-300 hover:text-brand-900"
+            >
+              <ArrowRight size={20} />
+            </button>
+          </div>
+
+          <a
+            href="#contact"
+            className="text-sm font-semibold text-brand-300 transition hover:opacity-75"
+          >
+            Contact me
+          </a>
         </div>
       </div>
     </section>
-  );
+  )
 }
