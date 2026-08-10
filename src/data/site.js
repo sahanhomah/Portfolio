@@ -89,7 +89,7 @@ export const services = {
       featured: true,
       description:
         'APIs and server logic with Python and Django. Authentication, business rules, and clean REST endpoints.',
-      skills: ['Python', 'Django', 'REST APIs', 'Authentication', 'Node.js'],
+      skills: ['Python', 'Django', 'REST APIs', 'Authentication'],
     },
     {
       title: 'Data & Tooling',
@@ -97,7 +97,7 @@ export const services = {
       icon: 'database',
       description:
         'Relational schema design plus the version control and deployment workflow that keeps a project shippable.',
-      skills: ['PostgreSQL', 'MySQL', 'SQLite', 'Git/GitHub'],
+      skills: [ 'SQL', 'Git', 'GitHub' ],
     },
   ],
 }
