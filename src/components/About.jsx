@@ -94,7 +94,7 @@ export default function About() {
                     href={`mailto:${profile.email}`}
                     className="font-semibold text-brand-300 transition hover:opacity-80"
                   >
-                    Say hello
+                    sahanshrestha2000@gmail.com
                   </a>
                 </dd>
               </div>
