@@ -109,15 +109,12 @@ export const marquee = {
   scrollLabel: 'Scroll down',
   stack: [
     'React',
-    'Django',
+    'Django', 
     'Python',
     'JavaScript',
     'Tailwind CSS',
     'PostgreSQL',
-    'Node.js',
-    'MySQL',
     'Git',
-    'Vite',
   ],
 }
 
